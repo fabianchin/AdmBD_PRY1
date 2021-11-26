@@ -102,23 +102,14 @@ GO
 
 Create Procedure sp_actualizar_automovil(
 	@idAutomovil int,
-	@marca varchar(25),
-	@idModelo int,
-	@estilo varchar(25),
 	@idColor int,
-	@capacidadPasajeros int,
-	@combustible int,
-	@transmision  bit,
-	@anio int,
 	@stock int,
 	@precio decimal,
 	@detalles varchar(500)
 )
 AS
 	BEGIN
-		UPDATE automovil SET marca=@marca, idModelo=@idModelo, estilo=@estilo, idColor=@idColor,
-		capacidadPasajeros=@capacidadPasajeros, combustible=@combustible, transmision=@transmision,
-		anio=@anio, stock=@stock, precio=@precio, detalles=@detalles
+		UPDATE automovil SET idColor=@idColor, stock=@stock, precio=@precio, detalles=@detalles
 		WHERE idAutomovil = @idAutomovil
 	END
 GO
