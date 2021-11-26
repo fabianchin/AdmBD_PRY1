@@ -1,6 +1,6 @@
 <?php
 	
-	class Vehiculo
+	class Automovil
 	{
 
 		private $idAutomovil;
@@ -10,12 +10,13 @@
 		private $idColor;
 		private $capacidadPasajeros;
 		private $combustible;
+		private $transmision;
 		private $anio;
 		private $idStock;
 		private $precio;
 		private $detalles;
         
-		function __construct($idAutomovil,$marca,$IdModelo,$estilo,$idColor,$capacidadPasajeros,$combustible,$anio,$idStock,$precio,$detalles)
+		function __construct($idAutomovil,$marca,$IdModelo,$estilo,$idColor,$capacidadPasajeros,$combustible,$transmision,$anio,$idStock,$precio,$detalles)
 		{
 			$this->idAutomovil = $idAutomovil;
 			$this->marca = $marca;
@@ -24,6 +25,7 @@
             $this->idColor = $idColor;
             $this->capacidadPasajeros = $capacidadPasajeros;
             $this->combustible = $combustible;
+			$this->transmision = $transmision;
             $this->anio = $anio;
             $this->idStock = $idStock;
 			$this->precio = $precio;
@@ -64,6 +66,11 @@
         public function getCombustible()
 		{
 			return $this->combustible;
+		}
+
+		public function getTransmision()
+		{
+			return $this->transmision;
 		}
 		
         public function getAnio()
