@@ -3,11 +3,17 @@
 	class Vehiculo
 	{
 
-		private $id;
-		private $nombre;
-		private $descripcion;
-		private $imagen;
+		private $idAutomovil;
+		private $marca;
+		private $IdModelo;
+		private $estilo;
+		private $idColor;
+		private $capacidadPasajeros;
+		private $combustible;
+		private $anio;
+		private $idStock;
 		private $precio;
+		private $detalles;
         
 		function __construct($idAutomovil,$marca,$IdModelo,$estilo,$idColor,$capacidadPasajeros,$combustible,$anio,$idStock,$precio,$detalles)
 		{
