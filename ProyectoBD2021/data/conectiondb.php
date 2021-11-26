@@ -6,7 +6,7 @@ class ConectionDB{
         $host='localhost';
         $dbname='BDProyectoFinal';
         $username='sa';
-        $pass='123fabichin';
+        $pass='system';
         $port=1433;
 
         try{
