@@ -12,15 +12,15 @@
         <script src="../JS/Sesion.js" type="text/javascript"></script>
         <script src="../JS/Validaciones.js" type="text/javascript"></script>
         <script src="../JS/SweetAlert.js" type="text/javascript"></script>
-        <script src="../script/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="../Iconos/js/all.min.js"></script>
+        <!--<script src="../script/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../Iconos/js/all.min.js"></script>-->
        
-        <!-- CSS ---->
+        <!-- CSS 
         <link rel="stylesheet" type="text/css" href="../Estilo/Principal.css">
         <link rel="stylesheet" type="text/css" href="../Estilo/SweetAlert.css">
         <link rel="stylesheet" type="text/css" href="../script/css/bootstrap.min.css">
         <link rel="stylesheet" href="../Iconos/css/all.min.css">
-
+-->
         <script type="text/javascript">
             window.onload=function(){
               
@@ -58,7 +58,7 @@
 
         <main>
 
-           <section class="container-fluid">
+           <section class="container-fluid"> 
                 <section class="row justify-content-center">
                     <section class="col-12 col-sm-6 col-md-3">
                         <div class="div-container">

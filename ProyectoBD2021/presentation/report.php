@@ -43,7 +43,7 @@ require '../data/ConectionDB.php';
 $con = new ConectionDB();
 $conn = $con->conection2();
 //Query
-$query="SELECT a.marca as 'Marca', m.modelo as 'Modelo', c.cedula as 'Cedula Cliente', c.nombre as 'Nombre Cliente', c.correo as 'Correo Cliente', u.usuario as 'Vendedor', v.precioVenta as 'Precio de venta'
+$query="SELECT a.marca as 'Marca', m.modelo as 'Modelo', c.cedula as 'Cedula Cliente', c.nombre as 'Nombre Cliente', c.correo as 'Correo Cliente', u.usuario as 'Vendedor', a.precio as 'Precio'
 FROM venta v
 INNER JOIN automovil a
 	ON v.idAutomovil=a.idAutomovil

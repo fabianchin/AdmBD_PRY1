@@ -6,25 +6,27 @@
 		private $idAutomovil;
 		private $cedula;
 		private $usuario;
-		private $precioTotal;
 
-		function __construct($idAutomovil,$cedula,$usuario,$precioTotal)
+		function __construct($idAutomovil,$cedula,$usuario)
 		{
 			$this->idAutomovil = $idAutomovil;
 			$this->cedula = $cedula;
 			$this->usuario = $usuario;
-			$this->precioTotal = $precioTotal;
 		}
 
-		public function getIdVenta()
+		public function getIdAutomovil()
 		{
-			return $this->idVenta;
+			return $this->idAutomovil;
 		}
 
-		public function getVenta()
+		public function getCedula()
 		{
-			return $this->venta;
+			return $this->cedula;
 		}
 
+		public function getUsuario()
+		{
+			return $this->usuario;
+		}
 	}
  ?>

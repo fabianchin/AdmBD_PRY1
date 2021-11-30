@@ -65,6 +65,25 @@
                     </form>
                 </div>            
         </div>
+
+        <div class="row">
+                <div class="col-sm-8"></div>
+                <div class="col-sm-4">
+                    <form action="Ventas.php" method="post">
+                        <button type="submit" class="btn btn-primary" id="enviarV">Generar Venta</button>
+                        <?php
+                            $query="SELECT cedula FROM cliente";
+                            $res = sqlsrv_query($conn,$query);
+                        ?>                        
+                        <select name="VCedula" id="VCedula" style="padding: 10px;">
+                            <?php 
+                            while($row=sqlsrv_fetch_array($res)){ ?>
+                                <option value="<?php echo $row[0] ?>"><?php echo $row[0] ?></option>
+                            <?php } ?>
+                        </select> 
+                    </form>
+                </div>            
+            </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
@@ -108,8 +127,6 @@
                             <th>Telefono</th>
                             <th>Ocupacion</th>
                             <th>Correo</th>
-                            <th>Modifica</th>
-                            <th>Eliminar</th>
                         </tr>
                     </thead>
                     <tbody  id="datos" >
@@ -126,7 +143,7 @@
                             <td> <?php echo $row[4] ?></td>
                             <td> <?php echo $row[5] ?></td>
                             
-                            <td>
+                            <!--<td>
                                 <form method="post" action="./Clientes.php">
                                     <input type="hidden" name="tcedula" value="<?php echo $row[0] ?>">
                                     <input type="hidden" name="tnombre" value="<?php echo $row[1] ?>">
@@ -136,12 +153,12 @@
                                     <input type="hidden" name="tcorreo" value="<?php echo $row[5] ?>">
                                     <input type="submit" name="MCliente" value="Editar" >
                                 </form>
-                            </td>
+                            </td>-->
 
-                            <td> 
+                            <!--<td> 
                                 <input type="hidden" name="tcedula" id="tcedula" value="<?php echo $row[0] ?>">
                                 <button type="button" class="btn btn-primary" onclick="Eliminar();">Eliminar</button>
-                            </td>
+                            </td>-->
 
                             <?php } ?>
                         </tr>

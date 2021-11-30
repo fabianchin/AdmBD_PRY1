@@ -1,5 +1,5 @@
 <?php
-   // include '../data/ConectionDB.php';
+    include '../data/ConectionDB.php';
     $con = new ConectionDB();
     $conn = $con->conection2();
 ?>

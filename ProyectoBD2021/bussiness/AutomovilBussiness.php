@@ -32,5 +32,9 @@
 			return $this->consulta->updateAutomovil($vehiculo);
 		}
 
+		public function Backup(){
+			return $this->consulta->createBackup();
+		}
+
 	}
 ?>

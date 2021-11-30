@@ -120,7 +120,7 @@ function Crear() {
               detalles: detalles,
             },
             function (responseText) {
-              console.log(responseText);
+              alert(responseText);
               if (responseText == true) {
                 Swal.fire({
                   position: "top",

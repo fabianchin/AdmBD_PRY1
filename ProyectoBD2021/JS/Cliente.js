@@ -9,6 +9,7 @@ function CampoVacio(dato)
 
 	return bandera;
 }
+
 function Crear() {
     var cedula = $("#cedula").val().trim();
     var nombre = $("#nombre").val().trim();
@@ -41,7 +42,7 @@ function Crear() {
         dataType: "html",
         
         success: function (dataresponse, statustext, response) {
-          console.log(dataresponse);
+          alert(dataresponse);
           if (dataresponse == true) {
             Swal.fire({
               position: "top",
@@ -257,4 +258,64 @@ function Crear() {
     $("#anio").val("");
     $("#precio").val("");
     $("#detalles").val("");
+  }
+
+  function CrearV() {
+    var cedula = $("#cliente").val().trim();
+    var carro = $("#auto").val().trim();
+    var vendedor = $("#vendedor").val();
+  
+    if (CampoVacio(cedula) || CampoVacio(carro) || CampoVacio(vendedor)) {
+      Swal.fire({
+        position: "top",
+        type: "warning",
+        title: "Rellene los espacios en blanco",
+      });
+    } else {
+      var parametros = {
+        accion: "crear",
+        cedula: cedula,
+        carro: carro,
+        vendedor: vendedor,
+      };
+      
+      $.ajax({
+        data: parametros,
+        url: "../bussiness/VentaAction.php",
+        type: "POST",
+        dataType: "html",
+        
+        success: function (dataresponse, statustext, response) {
+          alert(dataresponse);
+          if (dataresponse == true) {
+            Swal.fire({
+              position: "top",
+              type: "success",
+              title: "Datos Guardados Correctamente",
+              showConfirmButton: false,
+              timer: 3000,
+            });
+            $("#modelo").val("");
+          } else {
+            /*Swal.fire({
+              position: "top",
+              type: "error",
+              title: "Datos no Guardados",
+              showConfirmButton: false,
+              timer: 3000,
+            });
+            $("#modelo").val("");*/
+          }
+        },
+        error: function (request, errorcode, errortext) {
+          Swal.fire({
+            position: "top",
+            type: "error",
+            title: errortext,
+            timer: 3000,
+          });
+          $("#modelo").val("");
+        },
+      });
+    }
   }

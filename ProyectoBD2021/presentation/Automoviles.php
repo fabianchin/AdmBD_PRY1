@@ -1,5 +1,6 @@
 <?php
-    include_once "../data/AutomovilData.php";
+    //include_once "../data/AutomovilData.php";
+    include "../data/ConectionDB.php";
     $con = new ConectionDB();
     $conn = $con->conection2();
 ?>
@@ -27,7 +28,7 @@
             <div class="collapse navbar-collapse" id="menu">
                 <ul class="navbar-nav mr-auto  ml-auto">
                     <li class="nav-item active">
-                        <a class ="nav-link" href="#.php">Extras</a>
+                        <a class ="nav-link" href="#.php"></a>
                     </li>
                 </ul>  
                 <span class="navbar-text">
@@ -41,25 +42,61 @@
                 <h3 class="text-white">Gestion de Vehiculos</h3>
             </div>
         </div>
+            
             <div class="row">
-                <div class="col-sm-8"></div>
-                <div class="col-sm-4">
-                <form action="report.php">
-                    <button type="submit" class="btn btn-primary">Generar Reporte</button>
-                </form>
-                    <button type="button" class="btn btn-primary">Generar Respaldo</button>
+                <div class="col-sm-6">
+                    <?php
+                        $query="SELECT DISTINCT m.idModelo, m.modelo FROM venta v inner join automovil a on v.idAutomovil=a.idAutomovil inner join modelo m on a.idModelo = m.idModelo";
+                        $res = sqlsrv_query($conn,$query);
+                        $option = "";
+                    ?>
+                    <form accept-charset="UTF-8" mehotd="post" action="../bussiness/reportAction.php">
+                        <select id="list" name="cbname" class="form-control">
+                        <?php while($row=sqlsrv_fetch_array($res)){ ?>
+                            <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
+                        <?php } ?>
+                        </select>
+                        <input type="hidden" id="tipo" name="tipo" value="filtroModelo">
+                        <button class="btn btn-primary" type=submit id=button1>Filtrar por Modelo</button>
+                    </form>
                 </div>
-            </div>
+                <div class="col-sm-6">
+                    <form action="report.php">
+                        <button type="submit" class="btn btn-primary">Generar Reporte</button>
+                    </form>
+                </div>
+                <div class="col-sm-6">
+                    <?php
+                        $query2="SELECT DISTINCT u.usuario FROM venta v inner join usuario u on v.usuario=u.usuario where u.tipo=2";
+                        $res2 = sqlsrv_query($conn,$query2);
+                    ?>
+                    <form accept-charset="UTF-8" mehotd="post" action="../bussiness/reportAction.php">
+                        <select id="list" name="cbname" class="form-control">
+                        <?php while($row2=sqlsrv_fetch_array($res2)){ 
+                            $user  = $row2[0];
+                            $users = explode("@", $user);?>
+                            <option value="<?php echo $users[0] ?>"><?php echo $row2[0] ?></option>
+                        <?php } ?>
+                        </select>
+                        <input type="hidden" id="tipo" name="tipo" value="filtroUsuario">
+                        <button class="btn btn-primary" type=submit id=button2>Filtrar por Usuario</button>
+                    </form>
+                </div>
+
+                    <button type="button" class="btn btn-primary" name="bk" id="bk">Generar Respaldo</button>
+                </div>
+            </div>           
+            
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
                         <label for="modelo">Modelo:</label>
                         <?php
-                            $query="SELECT DISTINCT m.idModelo, m.modelo FROM modelo m inner join automovil a on m.idModelo=a.idModelo";
+                            $query="SELECT DISTINCT idModelo, modelo FROM modelo";
                             $res = sqlsrv_query($conn,$query);
                             $option = "";   
                         ?>                        
-                        <select name="modelo" id="modelo" style="padding: 10px;">
+                        <select name="modelo" id="modelo" class="form-control">
                             <?php 
                             while($row=sqlsrv_fetch_array($res)){ ?>
                                 <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
@@ -73,11 +110,11 @@
                     <div class="col-md-6">
                         <label for="color">Color:</label>
                         <?php
-                            $query="SELECT DISTINCT c.idColor, c.color FROM color c inner join automovil a on c.idColor=a.idColor";
+                            $query="SELECT DISTINCT idColor, color FROM color";
                             $res = sqlsrv_query($conn,$query);
                             $option = "";   
                         ?>                        
-                        <select name="color" id="color" style="padding: 10px;">
+                        <select name="color" id="color" class="form-control">
                             <?php 
                             while($row=sqlsrv_fetch_array($res)){ ?>
                                 <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
@@ -90,7 +127,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="combustible">Combustible:</label>
-                        <select name="combustible" id="combustible" style="padding: 10px;">
+                        <select name="combustible" id="combustible" class="form-control">
                             <option value="1">Gasolina</option>
                             <option value="2">Diesel</option>
                             <option value="3">Electrico</option>
@@ -99,8 +136,8 @@
                     </div>
                     <div class="col-md-6">
                         <label for="transmision">Transmision:</label><br>
-                        <input type="radio" name="transmision" id="transmision" value="1">Automatico
-                        <input type="radio" name="transmision" id="transmision" value="2">Manual
+                        <input type="radio" name="transmision" id="transmision" value="0">Automatico
+                        <input type="radio" name="transmision" id="transmision" value="1">Manual
                     </div>
                 </div>
                 <div class="row">
@@ -115,7 +152,7 @@
                         <input type="text" name="precio" id="precio" placeholder="Ingrese El Precio" onkeypress="return Numeros(event)" class="form-control">
                     </div><div class="col-md-6">
                         <label for="detalles">Detalles:</label>
-                        <input type="text" name="detalles" id="detalles" placeholder="Ingrese Detalles" onkeypress="return Letras(event)" class="form-control" autofocus> 
+                        <input type="text" name="detalles" id="detalles" placeholder="Ingrese Detalles" class="form-control" autofocus> 
                     </div>
                 </div>
                 <br><br>
@@ -190,13 +227,13 @@
                                 <div class="row">
                                         <input type="hidden" name="id" id="M_id" class="form-control">
                                         <label for="color">Color:</label>
-                                        <input type="text" name="color" id="M_color" onkeypress="return Letras(event)" placeholder="Ingrese el Nombre" class="form-control" autofocus> 
+                                        <input type="text" name="color" id="M_color" placeholder="Ingrese el Nombre" class="form-control" autofocus> 
                                         <label for="stock">Stock:</label>
                                         <input type="text" name="stock" id="M_stock" onkeypress="return Numeros(event)"  placeholder="Ingrese La Cantidad" class="form-control">
                                         <label for="precio">Precio:</label>
                                         <input type="text" name="precio" id="M_precio" onkeypress="return Numeros(event)"  placeholder="Ingrese La Cantidad" class="form-control">
                                         <label for="detalles">Detalles:</label>
-                                        <input type="text" name="detalles" id="M_detalles" onkeypress="return Letras(event)" placeholder="Ingrese el Nombre" class="form-control" autofocus>  
+                                        <input type="text" name="detalles" id="M_detalles" placeholder="Ingrese el Nombre" class="form-control" autofocus>  
                                     </div>             
                             </div>
                             <div class="modal-footer">
@@ -211,4 +248,19 @@
     <script src="../JS/Automovil.js"></script>
     <script src="../JS/SweetAlert.js"></script>
     <script src="../JS/Validaciones.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("bk").click(function(){
+                $.ajax({
+                    type: 'POST',
+                    url: '../.php',
+                    success: function(data) {
+                        alert(data);
+                        $("p").text(data);
+                    }
+                });
+            });
+        });
+    </script>
 </html>

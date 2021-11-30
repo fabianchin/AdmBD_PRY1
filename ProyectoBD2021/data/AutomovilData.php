@@ -16,7 +16,6 @@ class AutomovilData{
 
         // Especificacion de parametros
         //Agarro los parametros de la funcion
-        $idAutomovil = $vehiculo->getIdAutomovil();
         $marca = $vehiculo->getMarca();
         $idModelo = $vehiculo->getModelo();
         $estilo = $vehiculo->getEstilo();
@@ -32,7 +31,6 @@ class AutomovilData{
         //echo $precio;
         
         //Defino un array y le doy los valores especificos que definimos arriba
-        $myparams['idAutomovil'] = $idAutomovil;
         $myparams['marca'] = $marca;
         $myparams['idModelo'] = $idModelo;
         $myparams['estilo'] = $estilo;
@@ -47,7 +45,6 @@ class AutomovilData{
 
         //Configuramos el procedimiento almacenado por medio de los parametros del array - los parametros se deben de pasar por referencia
         $procedure_params = array(
-        array(&$myparams['idAutomovil'], SQLSRV_PARAM_IN), 
         array(&$myparams['marca'], SQLSRV_PARAM_IN),
         array(&$myparams['idModelo'], SQLSRV_PARAM_IN),
         array(&$myparams['estilo'], SQLSRV_PARAM_IN),
@@ -62,7 +59,7 @@ class AutomovilData{
         ); //Existe SQLSRV_PARAM_OUT, pero ese creo que se usa si uno espera algo de retorno desde el procedimiento almacenado, en este punto solo son INPUTS
 
         // Una variable con el ejecutable del procedimiento almacenado
-        $sql = "EXEC sp_insertar_automovil @idAutomovil = ?, @marca = ?, @idModelo = ?, @estilo = ?, @idColor = ?, @capacidadPasajeros = ?, @combustible = ?, @transmision = ?, @anio = ?, @stock = ?, @precio = ?, @detalles = ?";
+        $sql = "EXEC sp_insertar_automovil @marca = ?, @idModelo = ?, @estilo = ?, @idColor = ?, @capacidadPasajeros = ?, @combustible = ?, @transmision = ?, @anio = ?, @stock = ?, @precio = ?, @detalles = ?";
 
         // Una variable que prepara la ejecucion del procedimiento almacenado con la conexion a bd, el procedimiento y sus parametros
         $stmt = sqlsrv_prepare($conn, $sql, $procedure_params);
@@ -83,6 +80,8 @@ class AutomovilData{
         }else{
         die( print_r( sqlsrv_errors(), true));
         } 
+
+        return $res;
     }
 
     public function updateAutomovil(Automovil $vehiculo){
@@ -212,6 +211,34 @@ class AutomovilData{
         }
         sqlsrv_free_stmt($stmt);
         return $veh;
+    }
+
+    public function createBackup(){
+        // Crea la conexion
+        $con = new ConectionDB(); 
+        $conn = $con->conection2(); 
+        if( $conn === false) {
+            echo 'Fallo la conexion a base de datos...';
+            die( print_r( sqlsrv_errors(), true)); //Mata el thread
+        }
+
+        // Una variable con el ejecutable del procedimiento almacenado
+        $sql = "EXEC sp_generarbackup";
+
+        // Una variable que prepara la ejecucion del procedimiento almacenado con la conexion a bd, el procedimiento y sus parametros
+        $stmt = sqlsrv_prepare($conn, $sql);
+        
+        if( !$stmt ) { //Si hay algun error al ejecutarlo o no existe el procedimiento
+        die( print_r( sqlsrv_errors(), true)); //Muestre el error y mate el proceso
+        }
+
+        if(sqlsrv_execute($stmt)){ //Paso final de ejecucion
+        $res = sqlsrv_next_result($stmt); //Este res pregunta si hay otro valor, esto iria dentro de un while (esta comentado abajo)
+        }else{
+        die( print_r( sqlsrv_errors(), true));
+        } 
+
+        return $res;
     }
 
     /*

@@ -7,6 +7,14 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"></script>
         <script src="JS/SweetAlert.js" type="text/javascript"></script>
         <script src="JS/ModeloJS.js" type="text/javascript"></script>    
+        <script src="JS/FiltroReportes.js" type="text/javascript"></script>
+        <script> 
+            (function() {
+                var scrt_var = document.getElementById("list").value;
+                var strLink = "presentation/reportfilter.php?id=" + scrt_var + "&type=filtroModelo";
+                document.getElementById("link2").setAttribute("href",strLink);
+            })();
+        </script>
     </head>
     <body>
     <?php
@@ -31,11 +39,28 @@
         /*include_once "data/AutomovilData.php";
         $data = new AutomovilData();
         $data->leerPorModelo("");*/
+
+        include "./data/ConectionDB.php";
+        $con = new ConectionDB(); 
+        $conn = $con->conection2(); 
+        if( $conn === false) {
+            echo 'Fallo la conexion a base de datos en el indexP';
+            die( print_r( sqlsrv_errors(), true)); //Mata el thread
+        }
+
+        $query="SELECT m.idModelo, m.modelo FROM venta v inner join automovil a on v.idAutomovil=a.idAutomovil inner join modelo m on a.idModelo = m.idModelo";
+        $res = sqlsrv_query($conn,$query);
+        $option = "";   
     ?>
-    <label for="nombre" >Nombre:</label>
-    <input type="text" name="modelo" id="modelo" placeholder="Nombre"  class="form-control" />
-    <div class="modal-footer">
-        <button type="button" class="btn btn-success" onclick="Crear()">Insertar</button>
-    </div>
+    <form accept-charset="UTF-8" mehotd="post" action="./bussiness/reportAction.php">
+        <select id="list" name="cbname" style="padding: 10px;">
+        <?php while($row=sqlsrv_fetch_array($res)){ ?>
+            <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
+        <?php } ?>
+        </select>
+            <input type="hidden" id="tipo" name="tipo" value="filtroModelo">
+            <button type=submit id=button1>Filtrar</button>
+        </form>
+
     </body>
 </html>

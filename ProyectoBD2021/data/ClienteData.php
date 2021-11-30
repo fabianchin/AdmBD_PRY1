@@ -61,8 +61,10 @@ class ClienteData{
         //print_r($params);
         print_r($myparams);
         }else{
-        die( print_r( sqlsrv_errors(), true));
+            die( print_r( sqlsrv_errors(), true));
         } 
+
+        return true;
     }
 
     public function obtainClienteId($v){
