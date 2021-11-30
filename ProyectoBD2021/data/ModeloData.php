@@ -1,9 +1,32 @@
 <?php
 	include "ConectionDB.php";
-	include './domain/Modelo.php';
+	include '../domain/Modelo.php';
 	//include "../../Negocio/Artesanal/Artesanal.php";
 
 	class ModeloData{
+
+		public function Crear(Modelo $modelo){
+			$con = new ConectionDB(); 
+			$conn = $con->conection2(); 
+			if( $conn === false) {
+				echo 'Fallo la conexion a base de datos en el query de createModelo...';
+				die( print_r( sqlsrv_errors(), true)); //Mata el thread
+			}
+	
+			// Especificacion de parametros
+			//Agarro los parametros de la funcion
+			$modeloid = $modelo->getIdModelo();
+			$modelo = $modelo->getModelo();
+
+			$sql = "EXEC sp_insertar_modelo @idModelo = ".$modeloid.", @modelo = ".$modelo."";
+			$res = sqlsrv_prepare($conn,$sql);
+
+			if(sqlsrv_execute($res)){
+				echo "Datos insertados";
+			}else{
+				echo "Datos No insertados";
+			}
+		}
 
 		public function insertModelo(Modelo $modelo){
 			// Crea la conexion
@@ -60,7 +83,7 @@
 		{
 			$conectar = new conexion();
 
-            $leer = "call Artesanal_Leer";
+            $leer = "EXEC sp_visualizar_automovil";
 
             $conectar->set_charset('utf8');
 
@@ -122,12 +145,18 @@
 		/*------------------------------------------------------------------------------------------------------------
 		------------------------------------------------------------------------------------------------------------*/
 
-		function LeerPorProductor($id)
+		function LeerPorMarca($modelo)
 		{
-            $conectar = new conexion();
-            $conectar->set_charset('utf8');
+			$con = new ConectionDB(); 
+            $con->set_charset('utf8');
+			$conn = $con->conection2(); 
 
-			$leer = "call Artesanal_LeerPorProductor('".$id."')";
+			if( $conn === false) {
+				echo 'Fallo la conexion a base de datos en el query de createModelo...';
+				die( print_r( sqlsrv_errors(), true)); //Mata el thread
+			}
+
+			$leer = "EXEC sp_visualizar_automovil('".$modelo."')";
 
 			$resultado = $conectar->query($leer);
 
@@ -136,7 +165,7 @@
 			while ($fila = $resultado->fetch_assoc())
         	{
 
-        		array_push($todos, new Artesanal($fila['id_tbartesanal'],$fila['nombre_tbartesanal'],$fila['descripcion_tbartesanal'],$fila['imagen_tbartesanal'],$fila['precio_tbartesanal']));
+        		array_push($todos, new Automovil($fila['id_tbartesanal'],$fila['nombre_tbartesanal'],$fila['descripcion_tbartesanal'],$fila['imagen_tbartesanal'],$fila['precio_tbartesanal']));
         	
         	}
 

@@ -3,15 +3,18 @@
 	class Venta
 	{
 
-		private $idVenta;
-		private $venta;
+		private $idAutomovil;
+		private $cedula;
+		private $usuario;
+		private $precioTotal;
 
-		function __construct($idVenta,$venta)
+		function __construct($idAutomovil,$cedula,$usuario,$precioTotal)
 		{
-			$this->idVenta = $idVenta;
-			$this->venta = $venta;
+			$this->idAutomovil = $idAutomovil;
+			$this->cedula = $cedula;
+			$this->usuario = $usuario;
+			$this->precioTotal = $precioTotal;
 		}
-
 
 		public function getIdVenta()
 		{

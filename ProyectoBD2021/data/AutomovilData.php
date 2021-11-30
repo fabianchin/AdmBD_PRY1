@@ -1,7 +1,7 @@
 <?php
 
 include 'ConectionDB.php';
-include './domain/Automovil.php';
+include '../domain/Automovil.php';
 
 class AutomovilData{
 
@@ -10,7 +10,7 @@ class AutomovilData{
         $con = new ConectionDB(); 
         $conn = $con->conection2(); 
         if( $conn === false) {
-            echo 'Fallo la conexion a base de datos en el query de createCliente...';
+            echo 'Fallo la conexion a base de datos en el query de insertAutomovil...';
             die( print_r( sqlsrv_errors(), true)); //Mata el thread
         }
 
@@ -28,6 +28,8 @@ class AutomovilData{
         $idStock = $vehiculo->getStock();
         $precio = $vehiculo->getprecio();
         $detalles = $vehiculo->getDetalle();
+
+        //echo $precio;
         
         //Defino un array y le doy los valores especificos que definimos arriba
         $myparams['idAutomovil'] = $idAutomovil;
@@ -77,7 +79,7 @@ class AutomovilData{
         //}
         // Los outputs en pantalla:
         //print_r($params);
-        print_r($myparams);
+        //print_r($myparams);
         }else{
         die( print_r( sqlsrv_errors(), true));
         } 
@@ -88,7 +90,7 @@ class AutomovilData{
         $con = new ConectionDB(); 
         $conn = $con->conection2(); 
         if( $conn === false) {
-            echo 'Fallo la conexion a base de datos en el query de createCliente...';
+            echo 'Fallo la conexion a base de datos en el query de updateAutomovil...';
             die( print_r( sqlsrv_errors(), true)); //Mata el thread
         }
 
@@ -99,7 +101,8 @@ class AutomovilData{
         $idStock = $vehiculo->getStock();
         $precio = $vehiculo->getprecio();
         $detalles = $vehiculo->getDetalle();
-        
+        //echo $idAutomovil;
+        //echo $detalles;
         //Defino un array y le doy los valores especificos que definimos arriba
         $myparams['idAutomovil'] = $idAutomovil;
         $myparams['idColor'] = $idColor;
@@ -134,24 +137,24 @@ class AutomovilData{
         //}
         // Los outputs en pantalla:
         //print_r($params);
-        print_r($myparams);
+        //print_r($myparams);
         }else{
         die( print_r( sqlsrv_errors(), true));
         } 
     }
     
-    public function deleteAutomovil(Automovil $vehiculo){
+    public function deleteAutomovil($idAutomovil){
         // Crea la conexion
         $con = new ConectionDB(); 
         $conn = $con->conection2(); 
         if( $conn === false) {
-            echo 'Fallo la conexion a base de datos en el query de createCliente...';
+            echo 'Fallo la conexion a base de datos en el query de deleteAutomovil...';
             die( print_r( sqlsrv_errors(), true)); //Mata el thread
         }
 
         // Especificacion de parametros
         //Agarro los parametros de la funcion
-        $idAutomovil = $vehiculo->getIdAutomovil();
+        //$idAutomovil = $vehiculo->getIdAutomovil();
         
         //Defino un array y le doy los valores especificos que definimos arriba
         $myparams['idAutomovil'] = $idAutomovil;
@@ -179,10 +182,100 @@ class AutomovilData{
         //}
         // Los outputs en pantalla:
         //print_r($params);
-        print_r($myparams);
+        //print_r($myparams);
         }else{
         die( print_r( sqlsrv_errors(), true));
         } 
     }
+
+    public function obtainAutomovilIdModelo($v){
+        $con = new ConectionDB(); 
+        $conn = $con->conection2(); 
+        if( $conn === false) {
+            echo 'Fallo la conexion a base de datos en el query de obtainAutomovilIdModelo';
+            die( print_r( sqlsrv_errors(), true));
+        }
+
+        $sql = "SELECT * FROM automovil WHERE idAutomovil = ".$v."";  
+        $stmt = sqlsrv_query( $conn, $sql );
+        if( $stmt === false) {
+            die( print_r( sqlsrv_errors(), true) );
+        }
+        
+        while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC) ) {
+              $veh = new Automovil($row[0], $row[1],
+              $row[2], $row[3],
+              $row[4], $row[5],
+              $row[6], $row[7],
+              $row[8], $row[9],
+              $row[10], $row[11]);
+        }
+        sqlsrv_free_stmt($stmt);
+        return $veh;
+    }
+
+    /*
+    function LeerPorModelo($modelo)
+		{
+			$con = new ConectionDB(); 
+            //$con->set_charset('utf8');
+			$conn = $con->conection2(); 
+
+			if( $conn === false) {
+				echo 'Fallo la conexion a base de datos en el query de createModelo...';
+				die( print_r( sqlsrv_errors(), true)); //Mata el thread
+			}
+
+			$consulta = sqlsrv_query("EXEC sp_visualizar_automovil('".$modelo."')");
+            $res = sqlsrv_query($conn,$consulta);
+			
+            if (!$res) {
+            die(mysql_error());
+            echo "MALO";
+            }
+            $resultado = $conn->query($query);
+
+     		$todos = array();
+
+			while ($fila = sqlsrv_fetch_array($consulta))
+        	{
+                echo $fila['modelo']."<br>";
+        		//array_push($todos, new Automovil($fila['idAutomovil'],$fila['marca'],$fila['idModelo'],$fila['estilo'],$fila['idColor'],$fila['capacidadPasajeros'],$fila['combustible'],$fila['transmision'],$fila['anio'],$fila['stock'],$fila['precio'],$fila['detalles']));
+        	
+        	}
+            
+            sqlsrv_close( $conn);
+
+//			return $todos;
+		}
+    function LeerPorModeloX($modelo)
+		{
+			$con = new ConectionDB(); 
+            //$con->set_charset('utf8');
+			$conn = $con->conection2(); 
+
+			if( $conn === false) {
+				echo 'Fallo la conexion a base de datos en el query de createModelo...';
+				die( print_r( sqlsrv_errors(), true)); //Mata el thread
+			}
+
+			$query = "EXEC sp_visualizar_automovil('".$modelo."')";
+            $res = sqlsrv_query($conn,$query);
+			
+            $resultado = $conn->query($query);
+
+     		$todos = array();
+
+			while ($fila = $resultado->sqlsrv_fetch_array())
+        	{
+
+        		array_push($todos, new Automovil($fila['idAutomovil'],$fila['marca'],$fila['idModelo'],$fila['estilo'],$fila['idColor'],$fila['capacidadPasajeros'],$fila['combustible'],$fila['transmision'],$fila['anio'],$fila['stock'],$fila['precio'],$fila['detalles']));
+        	
+        	}
+            
+			$con->close();
+
+			return $todos;
+		}*/
 }
 ?>

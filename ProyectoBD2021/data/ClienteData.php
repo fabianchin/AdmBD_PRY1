@@ -1,7 +1,7 @@
 <?php
 
 include 'ConectionDB.php';
-include './domain/Cliente.php';
+include '../domain/Cliente.php';
 
 class ClienteData{
 
@@ -63,6 +63,29 @@ class ClienteData{
         }else{
         die( print_r( sqlsrv_errors(), true));
         } 
+    }
+
+    public function obtainClienteId($v){
+        $con = new ConectionDB(); 
+        $conn = $con->conection2(); 
+        if( $conn === false) {
+            echo 'Fallo la conexion a base de datos en el query de createColor3...';
+            die( print_r( sqlsrv_errors(), true));
+        }
+
+        $sql = "SELECT * FROM cliente WHERE cedula = ".$v."";  
+        $stmt = sqlsrv_query( $conn, $sql );
+        if( $stmt === false) {
+            die( print_r( sqlsrv_errors(), true) );
+        }
+        
+        while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC) ) {
+              $veh = new Cliente($row[0], $row[1],
+              $row[2], $row[3],
+              $row[4], $row[5]);
+        }
+        sqlsrv_free_stmt($stmt);
+        return $veh;
     }
     
 }

@@ -138,7 +138,7 @@ AS
 		END
 	ELSE
 		BEGIN
-			SELECT * FROM automovil WHERE idModelo = @idModelo
+			select a.marca, m.modelo, estilo, c.color, a.capacidadPasajeros, a.combustible, a.transmision, a.anio, a.stock, a.precio, a.detalles from automovil a inner join color c on a.idColor=c.idColor inner join modelo m on a.idModelo=m.idModelo WHERE a.idModelo = @idModelo
 		END
 GO
 
