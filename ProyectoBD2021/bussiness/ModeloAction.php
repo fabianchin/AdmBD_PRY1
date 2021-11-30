@@ -28,105 +28,35 @@
 
   function Crear()
   {
-    window.alert("Entra modeloAction");
-    if(isset($_POST["nombre"]) && isset($_POST["descripcion"]) && isset($_POST["precio"]))
+    if(isset($_POST["modelo"]))
     {
 
-      if(!empty($_POST["nombre"]) && !empty($_POST["descripcion"]) && !empty($_POST["precio"]))
+      if(!empty($_POST["modelo"]))
       {
-
-        if(is_numeric($_POST["precio"]))
-        {
-
-          if($_FILES['imagen']['error'] == 0)
-          {
-
-            if(!empty($_FILES["imagen"]["tmp_name"])) 
-            {
             
-              $nombre = ucfirst($_POST["nombre"]);
-              $descripcion = ucfirst($_POST["descripcion"]);
-              $imagen = $_FILES["imagen"]["tmp_name"];
-              $imagenContent = addslashes(file_get_contents($imagen));
-              $precio = $_POST["precio"];
+        $nombre = ucfirst($_POST["modelo"]);
 
-              if (is_uploaded_file($imagen))
-              {
+                  //session_start();
 
-                if ($_FILES["imagen"]["type"] == "image/jpeg" || $_FILES["imagen"]["type"] == "image/pjpeg" || $_FILES["imagen"]["type"] == "image/gif" || $_FILES["imagen"]["type"] == "image/bmp" || $_FILES["imagen"]["type"] == "image/png")
-                {
+        $modelo = new Modelo(5,$nombre);
+        $negocio = new ModeloBussiness();
+        $resultado = $negocio->Crear($modelo);
 
-                  session_start();
-
-                  $idProductor = $_SESSION['idAsociado']; 
-
-                  $artesanal = new Artesanal(0,$nombre,$descripcion,$imagenContent,$precio);
-                  $negocio = new ArtesanalNegocio();
-                  $resultado = $negocio->Crear($artesanal,$idProductor);
-
-                  if ($resultado) 
-                  {
-                    echo true;
-                  }
-                  else
-                  {
-                    echo false;
-                  }
-
-                }
-                else
-                {
-
-                  echo "ArchivoNoImagen";
-
-                }
-      
-              }
-              else
-              {
-
-                echo "ArchivoNoPost";
-
-              }
-
-            }
-            else
-            {
-
-              echo "ImagenVacia";
-          
-            }
-
-          }
-          else
-          {
-
-            echo "ImagenNoCargada";
-
-          }
-
+        if ($resultado){
+          echo true;
         }
         else
         {
-          echo "NoNumero";
+        echo false;
         }
-
       }
       else
-      {
-
-        echo "CamposVacios";
-
-      }
-
+        echo "CamposVacios";        
     }
     else
     {
-
       echo "VariablesNoDefinidas";
-    
     }
-
   }
 
 

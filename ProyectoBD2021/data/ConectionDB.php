@@ -1,4 +1,4 @@
-a<?php
+<?php
 
 class ConectionDB{
 
@@ -20,7 +20,7 @@ class ConectionDB{
 
     function conection2(){
         $serverName = "localhost\\sqlexpress, 1433";
-        $connectionInfo = array( "Database"=>"BDProyectoFinal", "UID"=>"sa", "PWD"=>"system");
+        $connectionInfo = array( "Database"=>"BDProyectoFinal2", "UID"=>"sa", "PWD"=>"system");
         $conn = sqlsrv_connect( $serverName, $connectionInfo);
         if( $conn === false) {
             echo 'Welp...';

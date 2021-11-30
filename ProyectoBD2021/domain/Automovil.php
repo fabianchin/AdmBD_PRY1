@@ -32,7 +32,6 @@
             $this->detalles = $detalles;
 		}
 
-
 		public function getIdAutomovil()
 		{
 			return $this->idAutomovil;
