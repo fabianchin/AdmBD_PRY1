@@ -9,13 +9,14 @@ function CampoVacio(dato)
 
 	return bandera;
 }
+
 function Crear() {
     var modelo = $("#modelo").val().trim();
     var estilo = $("#estilo").val().trim();
     var color = $("#color").val().trim();
     var capacidad = $("#capacidad").val().trim();
     var combustible = $("#combustible").val().trim();
-    var transmision = $("#transmision").val().trim();
+    var transmision = $('input:radio[name=transmision]:checked').val();
     var anio = $("#anio").val().trim();
     var stock = $("#stock").val().trim();
     var precio = $("#precio").val().trim();

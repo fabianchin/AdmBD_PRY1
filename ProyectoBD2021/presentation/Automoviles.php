@@ -1,5 +1,4 @@
 <?php
-    //include_once "../data/AutomovilData.php";
     include "../data/ConectionDB.php";
     $con = new ConectionDB();
     $conn = $con->conection2();
@@ -43,34 +42,30 @@
             </div>
         </div>
             
-            <div class="row">
-                <div class="col-sm-6">
+            <div class="row" style="padding:5px; margin-left: 65px;">
+                <div class="col-sm-3">                   
                     <?php
                         $query="SELECT DISTINCT m.idModelo, m.modelo FROM venta v inner join automovil a on v.idAutomovil=a.idAutomovil inner join modelo m on a.idModelo = m.idModelo";
                         $res = sqlsrv_query($conn,$query);
                         $option = "";
                     ?>
                     <form accept-charset="UTF-8" mehotd="post" action="../bussiness/reportAction.php">
+                        <button class="btn btn-primary" type=submit id=button1>Generar Reporte por Modelo</button>
                         <select id="list" name="cbname" class="form-control">
                         <?php while($row=sqlsrv_fetch_array($res)){ ?>
                             <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
                         <?php } ?>
                         </select>
                         <input type="hidden" id="tipo" name="tipo" value="filtroModelo">
-                        <button class="btn btn-primary" type=submit id=button1>Filtrar por Modelo</button>
                     </form>
                 </div>
-                <div class="col-sm-6">
-                    <form action="report.php">
-                        <button type="submit" class="btn btn-primary">Generar Reporte</button>
-                    </form>
-                </div>
-                <div class="col-sm-6">
+                <div class="col-sm-3">
                     <?php
                         $query2="SELECT DISTINCT u.usuario FROM venta v inner join usuario u on v.usuario=u.usuario where u.tipo=2";
                         $res2 = sqlsrv_query($conn,$query2);
                     ?>
                     <form accept-charset="UTF-8" mehotd="post" action="../bussiness/reportAction.php">
+                    <button class="btn btn-primary" type=submit id=button2>Generar Reporte por Usuario</button>
                         <select id="list" name="cbname" class="form-control">
                         <?php while($row2=sqlsrv_fetch_array($res2)){ 
                             $user  = $row2[0];
@@ -79,10 +74,14 @@
                         <?php } ?>
                         </select>
                         <input type="hidden" id="tipo" name="tipo" value="filtroUsuario">
-                        <button class="btn btn-primary" type=submit id=button2>Filtrar por Usuario</button>
                     </form>
                 </div>
-
+                <div class="col-sm-3">
+                    <form action="report.php">
+                        <button type="submit" class="btn btn-primary">Generar Reporte de Todos los Autos</button>
+                    </form>
+                </div>
+                <div class="col-sm-3">
                     <button type="button" class="btn btn-primary" name="bk" id="bk">Generar Respaldo</button>
                 </div>
             </div>           
@@ -136,8 +135,8 @@
                     </div>
                     <div class="col-md-6">
                         <label for="transmision">Transmision:</label><br>
-                        <input type="radio" name="transmision" id="transmision" value="0">Automatico
-                        <input type="radio" name="transmision" id="transmision" value="1">Manual
+                        <input type="radio" name="transmision" id="transmision1" value="0">Automatico
+                        <input type="radio" name="transmision" id="transmision2" value="1">Manual
                     </div>
                 </div>
                 <div class="row">
@@ -176,6 +175,8 @@
                             <th>Stock</th>
                             <th>Precio</th>
                             <th>Detalles</th>
+                            <th>Modificar</th>
+                            <th>Eliminar</th>
                         </tr>
                     </thead>
                     <tbody  id="datos" >
@@ -227,7 +228,17 @@
                                 <div class="row">
                                         <input type="hidden" name="id" id="M_id" class="form-control">
                                         <label for="color">Color:</label>
-                                        <input type="text" name="color" id="M_color" placeholder="Ingrese el Nombre" class="form-control" autofocus> 
+                                        <?php
+                                            $query="SELECT DISTINCT idColor, color FROM color";
+                                            $res = sqlsrv_query($conn,$query);
+                                            $option = "";   
+                                        ?>                        
+                                        <select name="color" id="M_color" class="form-control">
+                                            <?php 
+                                            while($row=sqlsrv_fetch_array($res)){ ?>
+                                                <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
+                                            <?php } ?>
+                                        </select>
                                         <label for="stock">Stock:</label>
                                         <input type="text" name="stock" id="M_stock" onkeypress="return Numeros(event)"  placeholder="Ingrese La Cantidad" class="form-control">
                                         <label for="precio">Precio:</label>

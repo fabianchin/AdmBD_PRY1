@@ -10,12 +10,6 @@ function IniciarSesion()
     Swal.fire({position: 'top',type: 'warning',title: 'Rellene los espacios en blanco'});
 
   }
-  /*else if(!Correo(correo))
-  {
-
-    Swal.fire({position: 'top',type: 'warning',title: 'El correo no es válido'});
-
-  }*/
   else
   {
     
@@ -57,14 +51,6 @@ function IniciarSesion()
           $('#contrasena').val("");
 
         }
-        /*else if(dataresponse == 3)
-        {
-
-          window.location = "Cliente_Productor.php";
-          $('#correo').val("");
-          $('#contrasena').val("");
-
-        }*/
         else
         {
         

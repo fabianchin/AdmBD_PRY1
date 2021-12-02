@@ -46,7 +46,7 @@ class VentaData{
         if(sqlsrv_execute($stmt)){ //Paso final de ejecucion
         $res = sqlsrv_next_result($stmt); //Este res pregunta si hay otro valor, esto iria dentro de un while (esta comentado abajo)
        
-        print_r($myparams);
+        //print_r($myparams);
         }else{
         die( print_r( sqlsrv_errors(), true));
         } 

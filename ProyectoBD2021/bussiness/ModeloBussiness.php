@@ -2,8 +2,7 @@
  
 	include '../Data/ModeloData.php';
 
-	class ModeloBussiness
-	{
+	class ModeloBussiness{
 
     	private $persistencia;
 
@@ -35,12 +34,6 @@
 		public function Modificar($modelo)
 		{
 			return $this->persistencia->Modificar($modelo);
-		}
-
-
-		public function LeerPorProductor($id)
-		{
-			return $this->persistencia->LeerPorProductor($id);
 		}
 
 	}

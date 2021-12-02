@@ -23,7 +23,7 @@ function Header()
     $this->Cell(25,10,'Cedula Cliente',1,0,'C',0);
     $this->Cell(35,10,'Nombre Cliente',1,0,'C',0);
     $this->Cell(35,10,'Correo Cliente',1,0,'C',0);
-    $this->Cell(35,10,'Correo Vendedor',1,0,'C',0);
+    $this->Cell(35,10,'Vendedor',1,0,'C',0);
     $this->Cell(15,10,'Precio',1,1,'C',0);
 }
 // Footer de todas las paginas
@@ -69,8 +69,13 @@ while($row=sqlsrv_fetch_array($res)){
     $pdf->Cell(35,7,$row[5],1,0,'C',0);
     $pdf->Cell(15,7,$row[6],3,1,'C',0);
     $pdf->Cell(175,2,7,1,1,'C',1);
-    //$pdf->Cell(0, 0, $pdf->Image($image1, $pdf->GetX()+ 72, $pdf->GetY()+ 5, 33.78), 0, 1, 'L', false );
 }
+
+$query2 = "SELECT SUM(a.precio) FROM venta v inner join automovil a ON v.idAutomovil=a.idAutomovil";
+$res="";
+$res = sqlsrv_query($conn,$query2);
+$row2=sqlsrv_fetch_array($res);
+$pdf->Cell(47,7,"TOTAL:".$row2[0],1,1,'C',0);
 //Impresion
 $pdf->Output();
 ob_end_flush();
