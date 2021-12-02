@@ -24,9 +24,11 @@
             <button class="navbar-toggler" data-target="#menu" data-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="menu">  
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav mr-auto  ml-auto">
+                </ul>
                 <span class="navbar-text">
-                    <a class ="nav-link" href="login.php">Salir</a>
+                    <a class ="nav-link" href="login.php">Atras</a>
                 </span>                
             </div>
         </nav>
@@ -44,7 +46,7 @@
                         <input type="text" disabled class="form-control" id="cliente" name="cliente" value="<?php echo $_POST["VCedula"]; ?>" >
                     </div><div class="col-md-4">
                         <label for="vendedor">Vendedor:</label>
-                        <input type="text" disabled class="form-control" name="vendedor" id="vendedor" value="<?php echo $_POST["VCedula"]; ?>" >
+                        <input type="text" disabled class="form-control" name="vendedor" id="vendedor" value="<?php echo $_POST["Vusu"]; ?>" >
                     </div><div class="col-md-4">
                         <label for="auto">Automovil:</label>
                         <input type="text" disabled name="auto" id="auto"  class="form-control" placeholder="identifador del carro">

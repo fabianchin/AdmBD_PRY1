@@ -7,20 +7,20 @@
 
         <title>Login</title>
 
-        <!-- JS ---->
+        <!-- JS -->
         <script src="../JS/JQuery-3.4.1.js" type="text/javascript"></script>
         <script src="../JS/Sesion.js" type="text/javascript"></script>
         <script src="../JS/Validaciones.js" type="text/javascript"></script>
         <script src="../JS/SweetAlert.js" type="text/javascript"></script>
-        <!--<script src="../script/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="../Iconos/js/all.min.js"></script>-->
+        <script src="../JS/js/bootstrap.min.js" type="text/javascript"></script>
+        <!--<script src="../JS/js/all.min.js"></script>-->
        
-        <!-- CSS 
+        <!-- CSS -->
         <link rel="stylesheet" type="text/css" href="../Estilo/Principal.css">
         <link rel="stylesheet" type="text/css" href="../Estilo/SweetAlert.css">
-        <link rel="stylesheet" type="text/css" href="../script/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../Iconos/css/all.min.css">
--->
+        <link rel="stylesheet" type="text/css" href="../JS/css/bootstrap.min.css">
+        <!--<link rel="stylesheet" href="../JS/css/all.min.css">-->
+
         <script type="text/javascript">
             window.onload=function(){
               
@@ -51,13 +51,7 @@
     </head>
 
     <body class="login">
-
-        <header>
-
-        </header>
-
         <main>
-
            <section class="container-fluid"> 
                 <section class="row justify-content-center">
                     <section class="col-12 col-sm-6 col-md-3">
@@ -67,7 +61,7 @@
                             </div>
                             <br>
                             <div class="form-group">
-                                <label for="correo">Ingrese su correo</label>
+                                <label for="correo">Ingrese su nombre de usuario</label>
                                 <input  class="form-control" aria-describedby="emailHelp" type="email" id="correo"  onkeypress="return (event.charCode != [32])"/>
                             </div>
                             <div class="form-group">
@@ -88,8 +82,7 @@
                         </div>
                     <section>        
                 </section>
-            </section>          
-
+            </section> 
 
         </main>
 
@@ -115,8 +108,6 @@
                 }
             })
         </script>
-
-
     </body>
 
 </html>

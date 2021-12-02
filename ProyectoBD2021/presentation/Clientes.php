@@ -26,9 +26,6 @@
             </button>
             <div class="collapse navbar-collapse" id="menu">
                 <ul class="navbar-nav mr-auto  ml-auto">
-                    <li class="nav-item active">
-                        <a class ="nav-link" href="#.php">Extras</a>
-                    </li>
                 </ul>  
                 <span class="navbar-text">
                     <a class ="nav-link" href="login.php">Salir</a>
@@ -41,49 +38,56 @@
                 <h3 class="text-white">Gestion de Clientes</h3>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-8"></div>
-                <div class="col-sm-4">
-                    <!--<button type="button" class="btn btn-primary" href="Ventas.php">Generar Venta</button>-->
-                    <!--<form action="FichasTecnicas.php" method="post">
-                        <button type="submit" class="btn btn-primary" id="enviar">Ficha Tecnica</button>
-                        <input type="text" name="fModelo" id="fModelo" placeholder="Ingrese el Modelo para filtrar" onkeypress="return Numeros(event)" class="form-control" autofocus> 
-                    </form>-->
-                    <form action="FichasTecnicas.php" method="post">
-                        <button type="submit" class="btn btn-primary" id="enviar">Ficha Tecnica</button>
-                        <?php
-                            $query="SELECT DISTINCT m.idModelo, m.modelo FROM modelo m inner join automovil a on m.idModelo=a.idModelo";
-                            $res = sqlsrv_query($conn,$query);
-                            $option = "";   
-                        ?>                        
-                        <select name="fModelo" id="fModelo" style="padding: 10px;">
-                            <?php 
-                            while($row=sqlsrv_fetch_array($res)){ ?>
-                                <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
-                            <?php } ?>
-                        </select> 
-                    </form>
-                </div>            
-        </div>
-
-        <div class="row">
-                <div class="col-sm-8"></div>
-                <div class="col-sm-4">
-                    <form action="Ventas.php" method="post">
-                        <button type="submit" class="btn btn-primary" id="enviarV">Generar Venta</button>
-                        <?php
-                            $query="SELECT cedula FROM cliente";
-                            $res = sqlsrv_query($conn,$query);
-                        ?>                        
-                        <select name="VCedula" id="VCedula" style="padding: 10px;">
-                            <?php 
-                            while($row=sqlsrv_fetch_array($res)){ ?>
-                                <option value="<?php echo $row[0] ?>"><?php echo $row[0] ?></option>
-                            <?php } ?>
-                        </select> 
-                    </form>
-                </div>            
+        <div class="row justify-content-center">
+            <div class="col-sm-2" style="margin:1em;">
+                <form action="FichasTecnicas.php" method="post">
+                    <button type="submit" class="btn btn-primary" id="enviar">Ficha Tecnica</button>
+                    <?php
+                        $query="SELECT DISTINCT m.idModelo, m.modelo FROM modelo m inner join automovil a on m.idModelo=a.idModelo";
+                        $res = sqlsrv_query($conn,$query);
+                        $option = "";   
+                    ?>                        
+                    <select class="form-control" name="fModelo" id="fModelo">
+                        <option value="Seleccione">Seleccione</option>
+                        <?php 
+                        while($row=sqlsrv_fetch_array($res)){ ?>
+                            <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
+                        <?php } ?>
+                    </select> 
+                </form>
             </div>
+            <form action="Ventas.php" method="post">
+                <div style="margin:1em; padding-left:4em;">
+                    <button type="submit" class="btn btn-primary" id="enviarV">Generar Venta</button>
+                </div>
+                <div style="float:left; margin:10px;">
+                    <?php
+                        $query="SELECT cedula FROM cliente";
+                        $res = sqlsrv_query($conn,$query);
+                    ?>
+                    <label for="cedulaVenta">Cedula Cliente:</label>                   
+                    <select class="form-control" name="VCedula" id="VCedula">
+                        <?php 
+                        while($row=sqlsrv_fetch_array($res)){ ?>
+                            <option value="<?php echo $row[0] ?>"><?php echo $row[0] ?></option>
+                        <?php } ?>
+                    </select> 
+                    </div>
+                <div style="float:left; margin:10px;">
+                    <?php
+                        $query="SELECT usuario FROM usuario where tipo=2";
+                        $res = sqlsrv_query($conn,$query);
+                    ?>
+                    <label for="usuVenta">Usuario:</label>                   
+                    <select class="form-control" name="Vusu" id="Vusu">
+                        <?php 
+                        while($row=sqlsrv_fetch_array($res)){ ?>
+                            <option value="<?php echo $row[0] ?>"><?php echo $row[0] ?></option>
+                        <?php } ?>
+                    </select> 
+                </div>                 
+            </form>                
+        </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
@@ -142,23 +146,6 @@
                             <td> <?php echo $row[3] ?></td>
                             <td> <?php echo $row[4] ?></td>
                             <td> <?php echo $row[5] ?></td>
-                            
-                            <!--<td>
-                                <form method="post" action="./Clientes.php">
-                                    <input type="hidden" name="tcedula" value="<?php echo $row[0] ?>">
-                                    <input type="hidden" name="tnombre" value="<?php echo $row[1] ?>">
-                                    <input type="hidden" name="tdireccion" value="<?php echo $row[2] ?>">
-                                    <input type="hidden" name="ttelefono" value="<?php echo $row[3] ?>">
-                                    <input type="hidden" name="tocupacion" value="<?php echo $row[4] ?>">
-                                    <input type="hidden" name="tcorreo" value="<?php echo $row[5] ?>">
-                                    <input type="submit" name="MCliente" value="Editar" >
-                                </form>
-                            </td>-->
-
-                            <!--<td> 
-                                <input type="hidden" name="tcedula" id="tcedula" value="<?php echo $row[0] ?>">
-                                <button type="button" class="btn btn-primary" onclick="Eliminar();">Eliminar</button>
-                            </td>-->
 
                             <?php } ?>
                         </tr>

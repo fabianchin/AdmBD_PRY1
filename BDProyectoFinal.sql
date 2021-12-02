@@ -280,7 +280,7 @@ select * from automovil
 
 EXEC sp_visualizar_automovil 2
 
-EXEC SP_eliminar_automovil 1
+EXEC sp_eliminar_automovil 1
 select * from automovil
 */
 

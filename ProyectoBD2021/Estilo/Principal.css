@@ -36,7 +36,7 @@
 
     /*LOGIN*/
 .login{
-    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("../images/login.jpeg");
+    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("images/login.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;

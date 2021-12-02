@@ -21,6 +21,9 @@
                 <img style="margin-top:20px; height:45px;" src="../Estilo/images/ford-logo.png" alt="Logo" />
                 <br>Ford Motors
             </a> 
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav mr-auto  ml-auto">
+                </ul> 
                 <span class="navbar-text">
                     <a class ="nav-link" href="Clientes.php">Atras</a>
                 </span>                
@@ -54,7 +57,7 @@
                 <?php
                     if (isset($_POST["fModelo"])) 
                     {
-                        if(empty($_POST["fModelo"]))
+                        if($_POST["fModelo"]=="Seleccione")
                         {
                             $query = "SELECT * FROM automovil";
                             $res = sqlsrv_query($conn,$query);

@@ -12,17 +12,12 @@
 	<link href="Estilo/css/style.css" rel="stylesheet">
 	<link href="Estilo/css/icons.css" rel="stylesheet">
 	<link href="Estilo/css/colorbox.css" rel="stylesheet">
-	<link rel="stylesheet" href="Aplicacion/js/css/bootstrap.min.css">
-    <link rel="stylesheet" href="Aplicacion/Iconos/css/all.min.css">
 	<!-- Load javascrips libraries-->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="Estilo/js/jquery.bxslider.js"></script>
 	<script src="Estilo/js/jquery.easypiechart.js"></script>
 	<script src="Estilo/js/jquery.colorbox.js"></script>
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-	<script src="Aplicacion/Gandero.js"></script>
-	<script src="Aplicacion/Iconos/js/all.min.js"></script>
-    <script src="Aplicacion/js/bootstrap.min.js"></script>
 	
 </head>
 <body>
@@ -42,11 +37,11 @@
 			<li>
 				<a href="#works" title="Home page">Contactenos <i class="icon-angle-right"></i></a>
 			</li>
-			<li>
+			<!--<li>
 				<a href="#registro" title="Home page">Registrar <i class="icon-angle-right"></i></a>
-			</li>
+			</li>-->
 			<li>
-				<a href="Presentacion/login.php" title="Home page">Iniciar Session <i class="icon-angle-right"></i></a>
+				<a href="presentation/login.php" title="Home page">Iniciar Session <i class="icon-angle-right"></i></a>
 			</li>
 		</ul>
 		<hr>
@@ -113,11 +108,11 @@
 			</div>
 		</div>
 	</div>
-	<div id="registro" class="container">
+	<!--<div id="registro" class="container">
             <div class="container">
                 <div class="card-header bg-info">
 				<p class="pattern"></p>
-				<p class="quote-text">Registrar Ganadero</p>
+				<p class="quote-text">Registrar Vendedor</p>
 				<p class="pattern"></p>
                 </div>
 
@@ -130,12 +125,6 @@
 							<p>Nombre:</p>
 						</div>
                         <input type="text" name="nombre" id="nombre" placeholder="Ingrese Nombre" class="form-control"> 
-                    </div>
-                    <div class="col-md-6">
-						<div class="container">
-							<p>Apellidos:</p>
-						</div>
-                        <input type="text" name="apellidos" id="apellidos" placeholder="Ingrese Apellidos" class="form-control">
                     </div>
                 </div>
                 <div class="row">
@@ -161,7 +150,7 @@
 
             </div>
 
-        </div>
+        </div>-->
 
 	<div class="works" id="works">
 		<div class="intro-second">
@@ -195,7 +184,6 @@
 /*
  * Initialize switcher on conact section from address view to contat form.
  * We use bxSlider for this.
- * More information and documentation on http://bxslider.com/
  */
 $('.contact-slider').bxSlider({
 	nextSelector: '#contact-form',
@@ -209,7 +197,6 @@ $('.contact-slider').bxSlider({
 /*
  * Initialize slider for team members.
  * We use bxSlider for this.
- * More information and documentation on http://bxslider.com/
  */
 $('#slider').bxSlider({
  	pagerCustom: '#person-pager',
@@ -220,7 +207,6 @@ $('#slider').bxSlider({
 /*
  * Initialize lightbox for images in portfolio.
  * We use ColorBox for this.
- * More information and documentation http://www.jacklmoore.com/colorbox/
  */
 $(".portfolio-search").colorbox({
 	rel:'portfolio-search',
@@ -274,7 +260,7 @@ $(window).load(function() {
 
 
 /*
- * Initialize main slider with BxSlider. http://bxslider.com/
+ * Initialize main slider with BxSlider.
  */
 $('#main-slider').bxSlider({
 	auto: true,
@@ -293,7 +279,7 @@ $('#main-slider').bxSlider({
 				});
 
 /*
- * Generate "We are good at" pie charts. For this we use http://rendro.github.io/easy-pie-chart/
+ * Generate "We are good at" pie charts.
  */
 $('.chart').easyPieChart({
 	barColor: '#202835',
@@ -310,7 +296,6 @@ $('.chart').easyPieChart({
 
 /*
  * This function initialize google map. More info on 
- * https://developers.google.com/maps/documentation/javascript/
  */
 function initialize() {
 
@@ -423,7 +408,6 @@ function initialize() {
 		}
 		]
 	};
-	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 }
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>

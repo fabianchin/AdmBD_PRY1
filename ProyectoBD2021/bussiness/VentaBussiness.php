@@ -27,10 +27,10 @@
 			return $this->consulta->deleteVenta($id);
 		}
 
-		public function Modificar($vehiculo)
+		/*public function Modificar($vehiculo)
 		{
 			return $this->consulta->updateVenta($vehiculo);
-		}
+		}*/
 
 	}
 ?>

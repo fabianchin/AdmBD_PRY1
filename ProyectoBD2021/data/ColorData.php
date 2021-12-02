@@ -5,7 +5,6 @@ include './domain/Color.php';
 
 class ColorData{
 
-
     public function insertColor(Color $color){
         // Crea la conexion
         $con = new ConectionDB(); 
@@ -42,10 +41,7 @@ class ColorData{
 
         if(sqlsrv_execute($stmt)){ //Paso final de ejecucion
         $res = sqlsrv_next_result($stmt); //Este res pregunta si hay otro valor, esto iria dentro de un while (esta comentado abajo)
-        
-        //while($res = sqlsrv_next_result($stmt)){
-            // Aqui se puede definir un array $params donde se van guardando los datos o lo que sea 
-        //}
+
         // Los outputs en pantalla:
         //print_r($params);
         print_r($myparams);

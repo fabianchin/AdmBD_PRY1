@@ -27,8 +27,6 @@ class AutomovilData{
         $idStock = $vehiculo->getStock();
         $precio = $vehiculo->getprecio();
         $detalles = $vehiculo->getDetalle();
-
-        //echo $precio;
         
         //Defino un array y le doy los valores especificos que definimos arriba
         $myparams['marca'] = $marca;
@@ -71,9 +69,6 @@ class AutomovilData{
         if(sqlsrv_execute($stmt)){ //Paso final de ejecucion
         $res = sqlsrv_next_result($stmt); //Este res pregunta si hay otro valor, esto iria dentro de un while (esta comentado abajo)
         
-        //while($res = sqlsrv_next_result($stmt)){
-            // Aqui se puede definir un array $params donde se van guardando los datos o lo que sea 
-        //}
         // Los outputs en pantalla:
         //print_r($params);
         //print_r($myparams);
@@ -100,8 +95,7 @@ class AutomovilData{
         $idStock = $vehiculo->getStock();
         $precio = $vehiculo->getprecio();
         $detalles = $vehiculo->getDetalle();
-        //echo $idAutomovil;
-        //echo $detalles;
+        
         //Defino un array y le doy los valores especificos que definimos arriba
         $myparams['idAutomovil'] = $idAutomovil;
         $myparams['idColor'] = $idColor;
@@ -131,9 +125,6 @@ class AutomovilData{
         if(sqlsrv_execute($stmt)){ //Paso final de ejecucion
         $res = sqlsrv_next_result($stmt); //Este res pregunta si hay otro valor, esto iria dentro de un while (esta comentado abajo)
         
-        //while($res = sqlsrv_next_result($stmt)){
-            // Aqui se puede definir un array $params donde se van guardando los datos o lo que sea 
-        //}
         // Los outputs en pantalla:
         //print_r($params);
         //print_r($myparams);
@@ -150,10 +141,6 @@ class AutomovilData{
             echo 'Fallo la conexion a base de datos en el query de deleteAutomovil...';
             die( print_r( sqlsrv_errors(), true)); //Mata el thread
         }
-
-        // Especificacion de parametros
-        //Agarro los parametros de la funcion
-        //$idAutomovil = $vehiculo->getIdAutomovil();
         
         //Defino un array y le doy los valores especificos que definimos arriba
         $myparams['idAutomovil'] = $idAutomovil;
@@ -175,13 +162,7 @@ class AutomovilData{
 
         if(sqlsrv_execute($stmt)){ //Paso final de ejecucion
         $res = sqlsrv_next_result($stmt); //Este res pregunta si hay otro valor, esto iria dentro de un while (esta comentado abajo)
-        
-        //while($res = sqlsrv_next_result($stmt)){
-            // Aqui se puede definir un array $params donde se van guardando los datos o lo que sea 
-        //}
-        // Los outputs en pantalla:
-        //print_r($params);
-        //print_r($myparams);
+
         }else{
         die( print_r( sqlsrv_errors(), true));
         } 
@@ -222,6 +203,8 @@ class AutomovilData{
             die( print_r( sqlsrv_errors(), true)); //Mata el thread
         }
 
+        echo "<script>alert('BK')</script>";
+
         // Una variable con el ejecutable del procedimiento almacenado
         $sql = "EXEC sp_generarbackup";
 
@@ -240,69 +223,5 @@ class AutomovilData{
 
         return $res;
     }
-
-    /*
-    function LeerPorModelo($modelo)
-		{
-			$con = new ConectionDB(); 
-            //$con->set_charset('utf8');
-			$conn = $con->conection2(); 
-
-			if( $conn === false) {
-				echo 'Fallo la conexion a base de datos en el query de createModelo...';
-				die( print_r( sqlsrv_errors(), true)); //Mata el thread
-			}
-
-			$consulta = sqlsrv_query("EXEC sp_visualizar_automovil('".$modelo."')");
-            $res = sqlsrv_query($conn,$consulta);
-			
-            if (!$res) {
-            die(mysql_error());
-            echo "MALO";
-            }
-            $resultado = $conn->query($query);
-
-     		$todos = array();
-
-			while ($fila = sqlsrv_fetch_array($consulta))
-        	{
-                echo $fila['modelo']."<br>";
-        		//array_push($todos, new Automovil($fila['idAutomovil'],$fila['marca'],$fila['idModelo'],$fila['estilo'],$fila['idColor'],$fila['capacidadPasajeros'],$fila['combustible'],$fila['transmision'],$fila['anio'],$fila['stock'],$fila['precio'],$fila['detalles']));
-        	
-        	}
-            
-            sqlsrv_close( $conn);
-
-//			return $todos;
-		}
-    function LeerPorModeloX($modelo)
-		{
-			$con = new ConectionDB(); 
-            //$con->set_charset('utf8');
-			$conn = $con->conection2(); 
-
-			if( $conn === false) {
-				echo 'Fallo la conexion a base de datos en el query de createModelo...';
-				die( print_r( sqlsrv_errors(), true)); //Mata el thread
-			}
-
-			$query = "EXEC sp_visualizar_automovil('".$modelo."')";
-            $res = sqlsrv_query($conn,$query);
-			
-            $resultado = $conn->query($query);
-
-     		$todos = array();
-
-			while ($fila = $resultado->sqlsrv_fetch_array())
-        	{
-
-        		array_push($todos, new Automovil($fila['idAutomovil'],$fila['marca'],$fila['idModelo'],$fila['estilo'],$fila['idColor'],$fila['capacidadPasajeros'],$fila['combustible'],$fila['transmision'],$fila['anio'],$fila['stock'],$fila['precio'],$fila['detalles']));
-        	
-        	}
-            
-			$con->close();
-
-			return $todos;
-		}*/
 }
 ?>

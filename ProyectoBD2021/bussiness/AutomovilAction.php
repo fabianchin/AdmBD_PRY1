@@ -18,8 +18,12 @@
   {
     Modificar();
   }
+  else if ($_POST["accion"] == "bk") 
+  {
+    BK();
+  }
 
-  /*  Agrega un herramienta   */
+  /*  Agrega un vehiculo   */
   function Crear()
   {
     if(isset($_POST["modelo"]))
@@ -38,9 +42,6 @@
         $stock = $_POST["stock"];
         $precio = $_POST["precio"];
         $detalles = $_POST["detalles"];
-
-
-                  //session_start();
 
         $vehiculo = new Automovil(5,"Ford",2,$estilo,$color,$capacidad,$combustible,$transmision,$anio,$stock,$precio,$detalles);
         $negocio = new AutomovilBussiness();
@@ -63,6 +64,7 @@
     }
   }
   
+  /*  Modifica un vehiculo   */
   function Modificar()
   {
     if(isset($_POST["color"]) && isset($_POST["stock"])  && isset($_POST["precio"]) && isset($_POST["detalles"]))
@@ -78,7 +80,6 @@
 
         $vehiculo = new Automovil($id,"",0,"",$color,0,0,0,0,$stock,$precio,$detalles);
 
-        //if($carro != NULL){
           $negocio = new AutomovilBussiness();
           $resultado = $negocio->Modificar($vehiculo);
 
@@ -90,7 +91,6 @@
           {
             echo false;    
           }
-        //}
         
       }
       else
@@ -105,16 +105,15 @@
   }
 
 /*  Mustra la tabla con los datos  */
-
   function Leer()
   {
 
-    $negocio = new LogicaAlimento();
+    $negocio = new AutomovilBussiness();
     echo $negocio->Leer();
       
   }
 
-
+/*  elimina un vehiculo   */
 function Eliminar()
   {
     $id = $_POST["id"];
@@ -131,4 +130,12 @@ function Eliminar()
       echo false;
     }
   
+  }
+
+  function BK()
+  {
+
+    $negocio = new AutomovilBussiness();
+    echo $negocio->Backup();
+      
   }
