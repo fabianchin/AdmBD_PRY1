@@ -37,20 +37,19 @@ function Crear() {
             Swal.fire({
               position: "top",
               type: "success",
-              title: "Su comentario ha sido enviado correctamente",
+              title: "Modelo agregado correctamente",
               showConfirmButton: false,
               timer: 3000,
             });
             $("#modelo").val("");
           } else {
-            Swal.fire({
+           /* Swal.fire({
               position: "top",
               type: "error",
               title: "Comentario no agregado",
               showConfirmButton: false,
               timer: 3000,
-            });
-            $("#modelo").val("");
+            });*/
           }
         },
         error: function (request, errorcode, errortext) {
@@ -66,75 +65,8 @@ function Crear() {
     }
   }
   
-  
   /*------------------------------------------------------------------------------------------------------------
   ------------------------------------------------------------------------------------------------------------*/
-  
-  
-  
-  function Leer() {
-    var parametros = {
-      accion: "leer",
-    };
-  
-    $.ajax({
-      data: parametros,
-      url: "../Negocio/Comentario/Comentario_Accion.php",
-      dataType: "html",
-      type: "post",
-  
-      success: function (dataresponse, statustext, response) {
-        $("#tbodyComentario").html(dataresponse);
-  
-        $("#tbComentario").DataTable({
-          language: {
-            processing: "Procesando...",
-            search: "Buscar:",
-            lengthMenu: "Mostrar _MENU_ registros",
-            info: " ",
-            infoEmpty: "",
-            infoFiltered: "",
-            infoPostFix: "",
-            loadingRecords: "Cargando...",
-            zeroRecords: "No se han encontrado coincidencias",
-            emptyTable: "No hay datos disponibles en la tabla",
-            paginate: {
-              first: "Primera",
-              previous: "Anterior",
-              next: "Siguiente",
-              last: "Última",
-            },
-            aria: {
-              sortAscending: "Ordenación ascendente",
-              sortDescending: "Ordenación descendente",
-            },
-          },
-          paging: true,
-          aaSorting: [],
-          lengthMenu: [
-            [5, 10, 15, 20, 25, 50, -1],
-            [5, 10, 15, 20, 25, 50, "Todos"],
-          ],
-          iDisplayLength: 5,
-          bJQueryUI: false,
-        });
-      },
-      error: function (request, errorcode, errortext) {
-        Swal.fire({
-          position: "top",
-          type: "error",
-          title: errortext,
-          timer: 3000,
-        });
-      },
-    });
-  }
-  
-  
-  /*------------------------------------------------------------------------------------------------------------
-  ------------------------------------------------------------------------------------------------------------*/
-  
-  
   
   function Eliminar(id) {
     var parametros = {
@@ -144,7 +76,7 @@ function Crear() {
   
     Swal.fire({
       position: "top",
-      text: "¿Está seguro que desea eliminar este comentario?",
+      text: "¿Está seguro que desea eliminar este modelo?",
       type: "question",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -155,7 +87,7 @@ function Crear() {
       if (result.value) {
         $.ajax({
           data: parametros,
-          url: "../Negocio/Comentario/Comentario_Accion.php",
+          url: "../bussiness/ModeloAction.php",
           dataType: "html",
           type: "post",
   
@@ -164,28 +96,18 @@ function Crear() {
               Swal.fire({
                 position: "top",
                 type: "success",
-                title: "Comentario eliminado",
+                title: "Modelo eliminado",
                 showConfirmButton: false,
                 timer: 3000,
               });
-  
-              $("#tbComentario").DataTable().clear();
-              $("#tbComentario").DataTable().destroy();
-  
-              Leer();
             } else {
-              Swal.fire({
+             /* Swal.fire({
                 position: "top",
                 type: "error",
-                title: "Comentario no eliminado",
+                title: "Modelo no eliminado",
                 showConfirmButton: false,
                 timer: 3000,
-              });
-  
-              $("#tbComentario").DataTable().clear();
-              $("#tbComentario").DataTable().destroy();
-  
-              Leer();
+              });*/
             }
           },
           error: function (request, errorcode, errortext) {

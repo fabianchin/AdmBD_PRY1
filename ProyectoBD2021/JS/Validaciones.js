@@ -12,10 +12,6 @@ function CampoVacio(dato)
 	return bandera; 
 }
 
-
-
-
-
 function Numerico(dato)
 {
   var bandera = false;
@@ -28,10 +24,6 @@ function Numerico(dato)
   return bandera;
 }
 
-
-
-
-
 function Correo(dato)
 {
 	var bandera = false;
@@ -43,30 +35,7 @@ function Correo(dato)
 	return bandera; 
 }
 
-
-
-
-
-function Extension(filename) 
-{
-  var bandera = false;
-
-  var extension = (/[.]/.exec(filename)) ? /[^.]+$/.exec(filename)[0] : undefined;
-
-  if(/(jpg|jpeg|png|gif)$/i.exec(extension))
-  {
-    bandera = true;
-  }
-
-  return bandera;
-}
-
-
-
-
 /*-----------------------------------------------------------------------------------------------------------*/
-
-
 
 function NumerosLetras(e)
 {
@@ -82,10 +51,6 @@ function NumerosLetras(e)
   }
 }
 
-
-
-
-
 function Numeros(e)
 {
   key = e.keyCode || e.which;
@@ -100,10 +65,6 @@ function Numeros(e)
   }
 }
 
-
-
-
-
 function Letras(e)
 {
   key = e.keyCode || e.which;
@@ -117,10 +78,6 @@ function Letras(e)
     return false;
   }
 }
-
-
-
-
 
 function caracteres(e){
   key = e.keyCode || e.which;

@@ -203,6 +203,8 @@ class AutomovilData{
             die( print_r( sqlsrv_errors(), true)); //Mata el thread
         }
 
+        echo "<script>alert('BK')</script>";
+
         // Una variable con el ejecutable del procedimiento almacenado
         $sql = "EXEC sp_generarbackup";
 

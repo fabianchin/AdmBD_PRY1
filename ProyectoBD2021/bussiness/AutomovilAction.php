@@ -18,6 +18,10 @@
   {
     Modificar();
   }
+  else if ($_POST["accion"] == "bk") 
+  {
+    BK();
+  }
 
   /*  Agrega un vehiculo   */
   function Crear()
@@ -126,4 +130,12 @@ function Eliminar()
       echo false;
     }
   
+  }
+
+  function BK()
+  {
+
+    $negocio = new AutomovilBussiness();
+    echo $negocio->Backup();
+      
   }

@@ -51,7 +51,7 @@ function Crear() {
         dataType: "html",
         
         success: function (dataresponse, statustext, response) {
-          console.log(dataresponse);
+          //console.log(dataresponse);
           if (dataresponse == true) {
             Swal.fire({
               position: "top",
@@ -60,16 +60,15 @@ function Crear() {
               showConfirmButton: false,
               timer: 3000,
             });
-            $("#modelo").val("");
+            Limpiar();
           } else {
-            Swal.fire({
+           /* Swal.fire({
               position: "top",
               type: "error",
               title: "Datos no Guardados",
               showConfirmButton: false,
               timer: 3000,
-            });
-            $("#modelo").val("");
+            });   */         
           }
         },
         error: function (request, errorcode, errortext) {
@@ -79,7 +78,6 @@ function Crear() {
             title: errortext,
             timer: 3000,
           });
-          $("#modelo").val("");
         },
       });
     }
@@ -221,16 +219,16 @@ function Crear() {
             obj[i].color +
             "</td>" +
             "<td><button class='btn btn-warning'  name=modificar onclick=\"Enviar('" +
-            obj[i].idalimento +
+            obj[i].idAutomovil +
             "','" +
-            obj[i].nombre +
+            obj[i].color +
             "','" +
-            obj[i].cantidad +
+            obj[i].stock +
             "','" +
-            obj[i].fechavencimiento +
+            obj[i].precio +
             "')\"><span class='fa fa-edit'></span></button></td>" +
             "<td><button class='btn btn-danger' onclick=Eliminar(" +
-            obj[i].idalimento +
+            obj[i].idAutomovil +
             ") name=eliminar id=elimminar><span class='fa fa-trash'></span></button></td>" +
             "</tr>";
         }
@@ -254,9 +252,10 @@ function Crear() {
   function cerrarModal() {
     $("#modal1").css("display", "none");
     $("#M_id").val("");
-    $("#M_nombre").val("");
-    $("#M_cantidad").val("");
-    $("#M_fecha").val("");
+    $("#M_color").val("");
+    $("#M_stock").val("");
+    $("#M_precio").val("");
+    $("#M_detalles").val("");
   }
   
   function Limpiar() {
@@ -264,6 +263,19 @@ function Crear() {
     $("#estilo").val("");
     $("#capacidad").val("");
     $("#anio").val("");
+    $("#stock").val("");
     $("#precio").val("");
     $("#detalles").val("");
   }
+
+  function BK(){
+  $.post(
+    "../bussiness/AutomovilAction.php",
+    {
+      accion: "bk",
+    },
+    function (responseText) {
+      //alert(responseText);
+    }
+  );
+}

@@ -82,7 +82,7 @@
                     </form>
                 </div>
                 <div class="col-sm-3">
-                    <button type="button" class="btn btn-primary" name="bk" id="bk">Generar Respaldo</button>
+                    <button type="button" class="btn btn-primary" name="bk" id="bk" onclick="BK();">Generar Respaldo</button>
                 </div>
             </div>           
             
